@@ -4,17 +4,12 @@ import Layout from '@/components/Layout'
 import { useFormik } from 'formik'
 import { object, string } from 'yup'
 import authContext from '@/context/auth/authContext'
+import Alerta from '@/components/Alerta'
 
 const crear_cuenta = () => {
 
     const AuthContext = useContext(authContext)
-    const {usuarioAutenticado} = AuthContext
-
-    useEffect(()=>{
-        setTimeout(() => {
-            usuarioAutenticado('Juan Esteban')
-        }, 3000);
-    }, [])
+    const {mensaje, registrarUsuario} = AuthContext
 
     const formik = useFormik({
         initialValues: {
@@ -28,7 +23,7 @@ const crear_cuenta = () => {
             password: string().required('La contraseña no puede estar vacía').min(6, 'La contraseña debe tener al menos 6 caracteres')
         }),
         onSubmit: (valores) => {
-            console.log(valores)
+            registrarUsuario(valores)
         }
     })
 
@@ -36,6 +31,8 @@ const crear_cuenta = () => {
         <Layout>
             <div className='md:w-4/5 xl:w-3/5 mx-auto mb-32'>
                 <h2 className='text-4xl font-sans font-bold text-gray-800 text-center my-4'>Crear cuenta</h2>
+
+                {mensaje && <Alerta/>}
 
                 <div className='flex justify-center mt-5'>
                     <div className='w-full max-w-lg'>
