@@ -1,24 +1,33 @@
 import { 
     REGISTRO_EXITOSO, 
     REGISTRO_ERROR,
-    LIMPIAR_ALETRTA
+    LIMPIAR_ALETRTA,
+    LOGIN_EXITOSO,
+    LOGIN_ERROR,
+    USUARIO_AUTENTICADO,
+    CERRAR_SESION,
 } from "@/types"
 
 export default (state, action) => {
     switch(action.type){
 
         case REGISTRO_EXITOSO:
+        case REGISTRO_ERROR:
+        case LOGIN_ERROR:
             return{
                 ...state,
                 mensaje: action.payload
             }
-
-        case REGISTRO_ERROR:
+            
+        case LOGIN_EXITOSO:
+            localStorage.setItem('token', action.payload)
             return{
                 ...state,
-                mensaje: action.payload
-            }    
-            
+                token: action.payload, 
+                autenticado: true,
+                mensaje: {tipo:'exito', text:"Te has autenticado exitosamente"}
+            }
+
         case LIMPIAR_ALETRTA:
             return{
                 ...state,
@@ -26,6 +35,22 @@ export default (state, action) => {
                     tipo: null,
                     text: null
                 }
+            }
+
+        case USUARIO_AUTENTICADO:
+            return{
+                ...state,
+                usuario: action.payload
+            }
+
+        case CERRAR_SESION:
+            localStorage.removeItem('token')
+            return{
+                ...state,
+                usuario: null,
+                token:null,
+                autenticado: null,
+                mensaje: {tipo:'exito', text:"Has cerrado sesión exitosamente"} 
             }
             
         default:

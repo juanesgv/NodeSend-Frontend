@@ -1,9 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Layout from "@/components/Layout";
 import { useFormik } from 'formik'
 import { object, string } from 'yup'
+import useAuth from '@/hooks/useAuth';
+import Alerta from '@/components/Alerta';
+import { useRouter } from 'next/router';
 
 const login = () => {
+
+    const {iniciarSesion, autenticado} = useAuth()
+    const router = useRouter()
+
+    useEffect(()=>{
+        if(autenticado){
+            router.push('/')
+        }
+    },[autenticado])
 
     const formik = useFormik({
         initialValues: {
@@ -15,12 +27,13 @@ const login = () => {
             password: string().required('La contraseña no puede estar vacía')
         }),
         onSubmit: (valores) => {
-            console.log(valores)
+            iniciarSesion(valores)
         }
     })
 
     return (
         <Layout>
+            <Alerta/>
             <div className='md:w-4/5 xl:w-3/5 mx-auto mb-32'>
                 <h2 className='text-4xl font-sans font-bold text-gray-800 text-center my-4'>Iniciar sesión</h2>
 
