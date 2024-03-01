@@ -3,13 +3,12 @@ import { useContext, useEffect } from 'react'
 import Layout from '@/components/Layout'
 import { useFormik } from 'formik'
 import { object, string } from 'yup'
-import authContext from '@/context/auth/authContext'
 import Alerta from '@/components/Alerta'
+import useAuth from '@/hooks/useAuth'
 
 const crear_cuenta = () => {
 
-    const AuthContext = useContext(authContext)
-    const {mensaje, registrarUsuario} = AuthContext
+    const {mensaje, registrarUsuario} = useAuth()
 
     const formik = useFormik({
         initialValues: {

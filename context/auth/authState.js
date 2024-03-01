@@ -1,5 +1,4 @@
-import authContext from "./authContext";
-import { useReducer } from "react";
+import { useReducer, createContext } from "react";
 import authReducer from "./authReducer";
 import { 
   REGISTRO_EXITOSO, 
@@ -7,6 +6,8 @@ import {
   LIMPIAR_ALETRTA
 } from "@/types";
 import clienteAxios from "@/config/axios";
+
+const AuthContext = createContext()
 
 const AuthState = ({ children }) => {
   //Definir el state inicial
@@ -35,7 +36,7 @@ const AuthState = ({ children }) => {
         type:REGISTRO_ERROR,
         payload : error.response.data.msg
       })
-      
+
     } finally{
       setTimeout(() => {
         dispatch({
@@ -53,7 +54,7 @@ const AuthState = ({ children }) => {
   };
 
   return (
-    <authContext.Provider
+    <AuthContext.Provider
       value={{
         token: state.token,
         autenticado: state.autenticado,
@@ -64,8 +65,9 @@ const AuthState = ({ children }) => {
       }}
     >
       {children}
-    </authContext.Provider>
+    </AuthContext.Provider>
   );
 };
 
+export {AuthContext}
 export default AuthState;

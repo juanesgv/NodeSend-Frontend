@@ -1,10 +1,9 @@
 import React from 'react'
-import { useContext } from 'react'
-import authContext from '@/context/auth/authContext'
+import useAuth from '@/hooks/useAuth'
 
 const Alerta = () => {
 
-    const AuthContext = useContext(authContext)
+    const AuthContext = useAuth()
 
     const {mensaje} = AuthContext;
 
