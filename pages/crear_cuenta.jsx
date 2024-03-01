@@ -1,9 +1,20 @@
 import React from 'react'
+import { useContext, useEffect } from 'react'
 import Layout from '@/components/Layout'
 import { useFormik } from 'formik'
 import { object, string } from 'yup'
+import authContext from '@/context/auth/authContext'
 
 const crear_cuenta = () => {
+
+    const AuthContext = useContext(authContext)
+    const {usuarioAutenticado} = AuthContext
+
+    useEffect(()=>{
+        setTimeout(() => {
+            usuarioAutenticado('Juan Esteban')
+        }, 3000);
+    }, [])
 
     const formik = useFormik({
         initialValues: {
