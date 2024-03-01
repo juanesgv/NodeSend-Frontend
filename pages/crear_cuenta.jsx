@@ -1,5 +1,4 @@
 import React from 'react'
-import { useContext, useEffect } from 'react'
 import Layout from '@/components/Layout'
 import { useFormik } from 'formik'
 import { object, string } from 'yup'
@@ -8,7 +7,7 @@ import useAuth from '@/hooks/useAuth'
 
 const crear_cuenta = () => {
 
-    const {mensaje, registrarUsuario} = useAuth()
+    const {registrarUsuario} = useAuth()
 
     const formik = useFormik({
         initialValues: {
@@ -31,7 +30,7 @@ const crear_cuenta = () => {
             <div className='md:w-4/5 xl:w-3/5 mx-auto mb-32'>
                 <h2 className='text-4xl font-sans font-bold text-gray-800 text-center my-4'>Crear cuenta</h2>
 
-                {mensaje && <Alerta/>}
+                <Alerta/>
 
                 <div className='flex justify-center mt-5'>
                     <div className='w-full max-w-lg'>

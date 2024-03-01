@@ -15,7 +15,10 @@ const AuthState = ({ children }) => {
     token: "",
     autenticado: null,
     usuario: null,
-    mensaje: null,
+    mensaje: {
+      tipo: null,
+      text: null
+    },
   };
 
   //Definir el reducer
@@ -27,14 +30,14 @@ const AuthState = ({ children }) => {
         const respuesta =  await clienteAxios.post('/usuarios', datos)
         dispatch ({
           type : REGISTRO_EXITOSO,
-          payload : respuesta.data.msg
+          payload : {tipo:'exito', text:respuesta.data.msg}
         })
 
     } catch (error) {
       console.log(error);
       dispatch ({
         type:REGISTRO_ERROR,
-        payload : error.response.data.msg
+        payload : {tipo:'error', text:error.response.data.msg}
       })
 
     } finally{

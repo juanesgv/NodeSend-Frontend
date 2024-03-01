@@ -22,7 +22,10 @@ export default (state, action) => {
         case LIMPIAR_ALETRTA:
             return{
                 ...state,
-                mensaje: null
+                mensaje: {
+                    tipo: null,
+                    text: null
+                }
             }
             
         default:
