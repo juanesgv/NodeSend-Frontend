@@ -1,11 +1,18 @@
 import React, { useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
 import clienteAxios from '@/config/axios'
+import useAPP from '@/hooks/useApp'
 
 const Dropzone = () => {
 
+    const {mostrarAlerta} = useAPP()
+ 
     const onDropRejected = () => {
-        console.log("no se puede subir")
+        mostrarAlerta({
+            titulo: "No fue posible cargar el archivo",
+            descripcion: " El límite de tamaño es de 1 MB. Si creas una cuenta, podrás disfrutar de beneficios adicionales y aumentar este límite.",
+            tipo:"error"
+        })
     }
 
     const onDropAccepted = useCallback(async (acceptedFiles) => {

@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import { AppContext } from "@/context/app/appState";
 
-const useAuth = () => {
+const useAPP = () => {
     return useContext(AppContext)
 }
 
-export default useAuth
+export default useAPP

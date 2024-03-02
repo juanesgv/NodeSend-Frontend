@@ -1,13 +1,17 @@
 import React, { useEffect } from "react";
 import Layout from "@/components/Layout";
-import Alerta from "@/components/Alerta";
+import Toast from "@/components/toast";
 import useAuth from "@/hooks/useAuth";
 import Link from "next/link";
 import Dropzone from "@/components/Dropzone";
+import useAPP from "@/hooks/useApp";
+import Alerta from "@/components/Alerta";
 
 export default function Home() {
 
   const { usuarioAutenticado } = useAuth()
+  const {mensaje_archivo } = useAPP()
+  console.log(mensaje_archivo)
 
   useEffect(() => {
     usuarioAutenticado()
@@ -15,9 +19,13 @@ export default function Home() {
 
   return (
     <Layout>
-      <Alerta />
+      <Toast />
       <div className="md:w-4/5 xl:w-3/5 mx-auto mb-32">
-        <div className="lg:flex md:shadow-lg p-5 bg-white rounded-xl py-10">
+        {
+          mensaje_archivo && <Alerta titulo={mensaje_archivo.titulo} descripcion={mensaje_archivo.descripcion} tipo={mensaje_archivo.tipo} />
+        }
+        
+        <div className="lg:flex md:shadow-lg p-5 bg-white rounded-xl py-10 mt-4">
           <div className="md:flex-1 mb-3 mx-2 mt-16 lg:mt-0">
             <Dropzone/>
           </div>
