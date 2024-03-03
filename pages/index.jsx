@@ -6,15 +6,27 @@ import Link from "next/link";
 import Dropzone from "@/components/Dropzone";
 import useAPP from "@/hooks/useApp";
 import Alerta from "@/components/Alerta";
+import { useState } from "react";
+import { CheckCircleIcon, CopyIcon } from "@chakra-ui/icons";
 
 export default function Home() {
 
   const { usuarioAutenticado } = useAuth()
   const { mensaje_archivo, url } = useAPP()
-
+  const [copiado, setCopiado] = useState(false)
+  
   useEffect(() => {
     usuarioAutenticado()
   }, [])
+
+  const handleClick = () => {
+    navigator.clipboard.writeText(`${process.env.frontendURL}/enlaces/${url}`)
+    setCopiado(true)
+
+    setTimeout(() => {
+      setCopiado(false)
+    }, 2000);
+  }
 
   return (
     <Layout>
@@ -29,9 +41,20 @@ export default function Home() {
             <button
               type='button'
               className='bg-red-500 hover:bg-gray-900 w-full p-2 text-white uppercase font-bold mt-6'
-              onClick={() => navigator.clipboard.writeText(`${process.env.frontendURL}/enlaces/${url}`)}
+              onClick={handleClick}
             >
-              Copiar enlace
+              {copiado ?
+                <div>
+                  <CheckCircleIcon className="mr-2"/>
+                  Enlace copiado 
+                </div>
+                :
+                <div>
+                  <CopyIcon className="mr-2"/>
+                  Copiar enlace
+                </div>
+              }
+
             </button>
           </>
         ) : (
