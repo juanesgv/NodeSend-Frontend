@@ -5,7 +5,7 @@ import { Spinner } from '@chakra-ui/react'
 
 const Dropzone = () => {
 
-    const { mostrarAlerta, subirArchivo, cargando } = useAPP()
+    const { mostrarAlerta, subirArchivo, cargando, crearEnlace } = useAPP()
 
     const onDropRejected = () => {
         mostrarAlerta({
@@ -33,9 +33,6 @@ const Dropzone = () => {
         </li>
     ))
 
-    const crearEnlace = () => {
-        console.log("Creando enlnace")
-    }
 
     return (
         <div className='p-4 md:flex-1 mb-3 mx-2 mt-16 lg:mt-0 flex flex-col items-center justify-center border-dashed border-gray-400 border-2 bg-gray-100 h-full'>

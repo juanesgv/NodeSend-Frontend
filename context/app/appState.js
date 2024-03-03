@@ -17,9 +17,13 @@ const AppContext = createContext();
 const AppState = ({ children }) => {
   const initialState = {
     mensaje_archivo: null,
-    nombre: '',
-    nombre_original: '',
-    cargando: false
+    nombre: "",
+    nombre_original: "",
+    cargando: false,
+    descargas: 1,
+    password: "",
+    autor: null,
+    url: "",
   };
 
   const [state, dispatch] = useReducer(appReducer, initialState);
@@ -36,7 +40,7 @@ const AppState = ({ children }) => {
       dispatch({
         type: OCULTAR_ALETRTA,
       });
-    }, 4000);
+    }, 5000);
   };
 
   const subirArchivo = async (formData, nombreArchivo) => {
@@ -64,10 +68,35 @@ const AppState = ({ children }) => {
               type: SUBIR_ARCHIVO_ERROR,
               payload: error.response.data.msg
             })
-          } 
+        } 
     }, 1000);
-
   };
+
+  const crearEnlace = async () => {
+    const data = {
+        nombre: state.nombre,
+        nombre_original: state.nombre_original,
+        descargas: state.descargas,
+        password: state.password,
+        autor: state.autor
+    }
+
+    try {
+        const resultado = await clienteAxios.post('/enlaces', data)
+        dispatch({
+            type: CREAR_ENLACE_EXITO,
+            payload: resultado.data.msg
+        })
+        mostrarAlerta({
+            titulo: "Enlace creado exitosamente",
+            descripcion: "Ahora puedes compartir este enlace con otras personas.",
+            tipo: "success"
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 
   return (
     <AppContext.Provider
@@ -76,8 +105,14 @@ const AppState = ({ children }) => {
         nombre: state.nombre,
         nombre_original: state.nombre_original,
         cargando: state.cargando,
+        descargas: state.descargas, 
+        password: state.password,
+        autor: state.autor,
+        url: state.url,
+        toastAlert: state.toastAlert,
         mostrarAlerta,
         subirArchivo,
+        crearEnlace,
       }}
     >
       {children}

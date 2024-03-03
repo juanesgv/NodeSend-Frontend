@@ -44,6 +44,12 @@ export default (state, action) => {
                 cargando:false
             }
 
+        case CREAR_ENLACE_EXITO:
+            return{
+                ...state,
+                url: action.payload,
+            }
+
         default:
             return state
     }
