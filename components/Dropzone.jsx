@@ -1,17 +1,17 @@
 import React, { useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
-import clienteAxios from '@/config/axios'
 import useAPP from '@/hooks/useApp'
+import { Spinner } from '@chakra-ui/react'
 
 const Dropzone = () => {
 
-    const {mostrarAlerta} = useAPP()
- 
+    const { mostrarAlerta, subirArchivo, cargando } = useAPP()
+
     const onDropRejected = () => {
         mostrarAlerta({
             titulo: "No fue posible cargar el archivo",
             descripcion: " El límite de tamaño es de 1 MB. Si creas una cuenta, podrás disfrutar de beneficios adicionales y aumentar este límite.",
-            tipo:"error"
+            tipo: "error"
         })
     }
 
@@ -21,8 +21,7 @@ const Dropzone = () => {
         const formData = new FormData()
         formData.append('archivo', acceptedFiles[0]) //acceptedFiles es un arreglo de archivos pero solo estoy permitiendo subir 1
 
-        const resultado = await clienteAxios.post('/archivos', formData)
-        console.log(resultado)
+        subirArchivo(formData, acceptedFiles[0].path)
     }, [])
 
     const { getRootProps, getInputProps, isDragActive, acceptedFiles } = useDropzone({ onDropAccepted, onDropRejected, maxSize: (1000000) })
@@ -47,9 +46,19 @@ const Dropzone = () => {
                     <ul>
                         {archivos}
                     </ul>
-                    <button type='button' className='bg-blue-700 w-full py-3 rounded-lg text-white my-10 hover:bg-blue-800' onClick={() => crearEnlace()}>
-                        Crear enlnace
-                    </button>
+                    {
+                        cargando ? (
+                            <div className='w-full flex flex-col gap-2 justify-center items-center my-5'>
+                                <Spinner/>
+                                <p className='text-gray-600'>Subiendo archivo...</p>
+                            </div>
+                        ) : (
+                            <button type='button' className='bg-blue-700 w-full py-3 rounded-lg text-white my-5 hover:bg-blue-800' onClick={() => crearEnlace()}>
+                                Crear enlace
+                            </button>
+                        )
+                    }
+
                 </div>
 
             ) : (

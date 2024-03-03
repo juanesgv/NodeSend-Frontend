@@ -11,7 +11,6 @@ export default function Home() {
 
   const { usuarioAutenticado } = useAuth()
   const {mensaje_archivo } = useAPP()
-  console.log(mensaje_archivo)
 
   useEffect(() => {
     usuarioAutenticado()

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Alert, AlertDescription, AlertIcon, AlertTitle } from '@chakra-ui/react'
 
 const Alerta = ({ tipo, titulo, descripcion }) => {
