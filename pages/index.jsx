@@ -14,7 +14,7 @@ export default function Home() {
   const { usuarioAutenticado } = useAuth()
   const { mensaje_archivo, url } = useAPP()
   const [copiado, setCopiado] = useState(false)
-  
+
   useEffect(() => {
     usuarioAutenticado()
   }, [])
@@ -33,9 +33,11 @@ export default function Home() {
       <Toast />
       <div className="md:w-4/5 xl:w-3/5 mx-auto mb-32">
 
+      {mensaje_archivo && <Alerta titulo={mensaje_archivo.titulo} descripcion={mensaje_archivo.descripcion} tipo={mensaje_archivo.tipo} />}
+
         {url ? (
           <>
-            <p className="text-center text-2xl font-bold text-red-700 ">Tu URL es:
+            <p className="text-center text-2xl font-bold text-red-700 mt-4 ">Tu URL es:
               <span className="text-black font-normal">{`${process.env.frontendURL}/enlaces/${url}`}</span>
             </p>
             <button
@@ -45,12 +47,12 @@ export default function Home() {
             >
               {copiado ?
                 <div>
-                  <CheckCircleIcon className="mr-2"/>
-                  Enlace copiado 
+                  <CheckCircleIcon className="mr-2" />
+                  Enlace copiado
                 </div>
                 :
                 <div>
-                  <CopyIcon className="mr-2"/>
+                  <CopyIcon className="mr-2" />
                   Copiar enlace
                 </div>
               }
@@ -60,7 +62,6 @@ export default function Home() {
         ) : (
 
           <>
-            {mensaje_archivo && <Alerta titulo={mensaje_archivo.titulo} descripcion={mensaje_archivo.descripcion} tipo={mensaje_archivo.tipo} />}
 
             <div className="lg:flex md:shadow-lg p-5 bg-white rounded-xl py-10 mt-4">
               <div className="md:flex-1 mb-3 mx-2 mt-16 lg:mt-0">
@@ -80,8 +81,6 @@ export default function Home() {
           </>
 
         )}
-
-
 
       </div>
     </Layout>
