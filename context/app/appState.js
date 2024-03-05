@@ -8,6 +8,7 @@ import {
   LIMPIAR_ALETRTA,
   MOSTRAR_ALETRTA,
   OCULTAR_ALETRTA,
+  LIMPIAR_STATE
 } from "@/types";
 import appReducer from "./appReducer";
 import clienteAxios from "@/config/axios";
@@ -97,6 +98,12 @@ const AppState = ({ children }) => {
     }
 }
 
+const limpiarState=()=>{
+  dispatch({
+    type: LIMPIAR_STATE,
+  })
+}
+
 
   return (
     <AppContext.Provider
@@ -113,6 +120,7 @@ const AppState = ({ children }) => {
         mostrarAlerta,
         subirArchivo,
         crearEnlace,
+        limpiarState
       }}
     >
       {children}

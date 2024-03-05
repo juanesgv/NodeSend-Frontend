@@ -2,20 +2,29 @@ import React from 'react'
 import { useEffect } from 'react'
 import Link from 'next/link'
 import useAuth from '@/hooks/useAuth'
+import useAPP from '@/hooks/useApp'
+import { useRouter } from 'next/router'
 
 const Header = () => {
 
+    const router = useRouter()
+
     const { usuarioAutenticado, cerrarSesion ,usuario } = useAuth()
+    const {limpiarState} = useAPP()
 
     useEffect(() => {
         usuarioAutenticado()
     }, [])
 
+    const redireccionar = () => {
+        router.push('/');
+        limpiarState()
+    }
+
     return (
         <div className='py-8 flex flex-col md:flex-row items-center justify-between'>
-            <Link href="/">
-                <img className='w-64 mb-8 md:0' src='/logo.svg' />
-            </Link>
+
+            <img className='w-64 mb-8 md:0 cursor-pointer' src='/logo.svg' onClick={redireccionar}/>
 
             <div className='flex gap-3'>
 
