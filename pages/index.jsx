@@ -16,7 +16,11 @@ export default function Home() {
   const [copiado, setCopiado] = useState(false)
 
   useEffect(() => {
-    usuarioAutenticado()
+    const token = localStorage.getItem('token')
+
+    if(token){
+      usuarioAutenticado()
+    }
   }, [])
 
   const handleClick = () => {

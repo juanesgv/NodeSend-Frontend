@@ -1,11 +1,14 @@
 import React, { useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
 import useAPP from '@/hooks/useApp'
+import useAuth from '@/hooks/useAuth'
 import { Spinner } from '@chakra-ui/react'
+import Form from './Form'
 
 const Dropzone = () => {
 
     const { mostrarAlerta, subirArchivo, cargando, crearEnlace } = useAPP()
+    const {usuario, autenticado} = useAuth()
 
     const onDropRejected = () => {
         mostrarAlerta({
@@ -43,6 +46,9 @@ const Dropzone = () => {
                     <ul>
                         {archivos}
                     </ul>
+
+                    {autenticado ? <Form/> : <p>no hay autenticación</p>}
+
                     {
                         cargando ? (
                             <div className='w-full flex flex-col gap-2 justify-center items-center my-5'>

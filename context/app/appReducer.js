@@ -8,6 +8,7 @@ import {
   MOSTRAR_ALETRTA,
   OCULTAR_ALETRTA,
   LIMPIAR_STATE,
+  AGREGAR_PASSWOWRD
 } from "@/types";
 
 export default (state, action) => {
@@ -61,6 +62,12 @@ export default (state, action) => {
         password: "",
         autor: null,
         url: "",
+      };
+
+    case AGREGAR_PASSWOWRD:
+      return {
+        ...state,
+        password:action.payload
       };
 
     default:

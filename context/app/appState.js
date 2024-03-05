@@ -5,10 +5,10 @@ import {
   SUBIR_ARCHIVO_ERROR,
   CREAR_ENLACE_EXITO,
   CREAR_ENLACE_ERROR,
-  LIMPIAR_ALETRTA,
   MOSTRAR_ALETRTA,
   OCULTAR_ALETRTA,
-  LIMPIAR_STATE
+  LIMPIAR_STATE,
+  AGREGAR_PASSWOWRD
 } from "@/types";
 import appReducer from "./appReducer";
 import clienteAxios from "@/config/axios";
@@ -51,7 +51,6 @@ const AppState = ({ children }) => {
     })
 
     const resultado = await clienteAxios.post("/archivos", formData);
-    console.log(resultado);
 
     setTimeout(() => {
         try {
@@ -104,6 +103,13 @@ const limpiarState=()=>{
   })
 }
 
+const agregarPassowrd = password => {
+  dispatch({
+    type : AGREGAR_PASSWOWRD,
+    payload: password
+  })
+}
+
 
   return (
     <AppContext.Provider
@@ -120,7 +126,8 @@ const limpiarState=()=>{
         mostrarAlerta,
         subirArchivo,
         crearEnlace,
-        limpiarState
+        limpiarState,
+        agregarPassowrd
       }}
     >
       {children}
