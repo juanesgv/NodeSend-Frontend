@@ -8,7 +8,8 @@ import {
   MOSTRAR_ALETRTA,
   OCULTAR_ALETRTA,
   LIMPIAR_STATE,
-  AGREGAR_PASSWOWRD
+  AGREGAR_PASSWOWRD,
+  AGREGAR_DESCARGAS
 } from "@/types";
 
 export default (state, action) => {
@@ -68,6 +69,12 @@ export default (state, action) => {
       return {
         ...state,
         password:action.payload
+      };
+
+    case AGREGAR_DESCARGAS:
+      return {
+        ...state,
+        descargas:action.payload
       };
 
     default:

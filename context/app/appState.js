@@ -8,7 +8,8 @@ import {
   MOSTRAR_ALETRTA,
   OCULTAR_ALETRTA,
   LIMPIAR_STATE,
-  AGREGAR_PASSWOWRD
+  AGREGAR_PASSWOWRD,
+  AGREGAR_DESCARGAS
 } from "@/types";
 import appReducer from "./appReducer";
 import clienteAxios from "@/config/axios";
@@ -30,7 +31,6 @@ const AppState = ({ children }) => {
   const [state, dispatch] = useReducer(appReducer, initialState);
 
   const mostrarAlerta = (alerta) => {
-    console.log(alerta);
     const { titulo, descripcion, tipo } = alerta;
     dispatch({
       type: MOSTRAR_ALETRTA,
@@ -110,6 +110,13 @@ const agregarPassowrd = password => {
   })
 }
 
+const agregarNroDescargas = descargas => {
+  dispatch({
+    type: AGREGAR_DESCARGAS,
+    payload: descargas
+  })  
+}
+
 
   return (
     <AppContext.Provider
@@ -127,7 +134,8 @@ const agregarPassowrd = password => {
         subirArchivo,
         crearEnlace,
         limpiarState,
-        agregarPassowrd
+        agregarPassowrd,
+        agregarNroDescargas
       }}
     >
       {children}

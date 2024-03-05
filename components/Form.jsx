@@ -4,14 +4,14 @@ import useAPP from '@/hooks/useApp'
 const Form = () => {
 
     const [tienePassword, SetTienePassword] = useState(false)
-    const {agregarPassowrd} = useAPP()
+    const {agregarPassowrd, agregarNroDescargas} = useAPP()
 
     return (
         <div className='w-full mt-4'>
             <div>
                 <label className='text-lg text-gray-800'>Eliminar tras:</label>
-                <select className='appearance-none w-full mt-2 bg-white border border-gray-400 text-black py-2 px-4 rounded focus:outline-none focus:border-gray-500'>
-                    <option value="" selected disabled>Seleccione</option>
+                <select onChange={e => agregarNroDescargas(parseInt(e.target.value))}  className='appearance-none w-full mt-2 bg-white border border-gray-400 text-black py-2 px-4 rounded focus:outline-none focus:border-gray-500'>
+                    <option value="">Seleccione</option>
                     <option value="1">1 Descarga</option>
                     <option value="5">5 Descargas</option>
                     <option value="10">10 Descargas</option>
